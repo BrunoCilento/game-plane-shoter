@@ -134,6 +134,11 @@ end
 
 
 function PlayState:render()
+    local sx = VIRTUAL_WIDTH / gBackground:getWidth()
+    local sy = VIRTUAL_HEIGHT / gBackground:getHeight()
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(gBackground, 0, 0, 0, sx, sy)
+
     --render score on the corner
     love.graphics.setFont(largeFont)
     love.graphics.print(tostring(self.score), VIRTUAL_WIDTH - 35, 10)
@@ -145,10 +150,10 @@ function PlayState:render()
         block:render()
     end
 
-    for i = #ground_table, 1, -1 do
-        ground = ground_table[i]
-        ground:render()
-    end
+    -- for i = #ground_table, 1, -1 do
+    --     ground = ground_table[i]
+    --     ground:render()
+    -- end
 
     for i = #self.plane.missile_table, 1, -1 do
         missile = self.plane.missile_table[i]
@@ -189,13 +194,13 @@ function spawnBlocks()
         random_horizontal_spacing = math.random(0,5)
         x = 100 + (col - 1) * (BLOCK_WIDTH + horizontal_spacing) + random_horizontal_spacing
         for row = 1, rows do
-            y = GROUND_LEVEL - BLOCK_HEIGHT - (row - 1) * (BLOCK_HEIGHT + vertical_spacing) -- Offset from the top
+            y = GROUND_LEVEL - 20 - BLOCK_HEIGHT - (row - 1) * (BLOCK_HEIGHT + vertical_spacing)
             table.insert(blocks_table, Block(x, y, BLOCK_WIDTH, BLOCK_HEIGHT))
         end
     end
 end
 
 function spawnGround()
-    table.insert(ground_table, Block(0, GROUND_LEVEL, VIRTUAL_WIDTH, VIRTUAL_HEIGHT - GROUND_LEVEL))
-    table.insert(ground_table, Block(80, GROUND_LEVEL - 20, VIRTUAL_WIDTH - 90, 20))
+    table.insert(ground_table, Block(0, GROUND_LEVEL, VIRTUAL_WIDTH, VIRTUAL_HEIGHT - GROUND_LEVEL)) --ground
+    table.insert(ground_table, Block(80, GROUND_LEVEL - 20, VIRTUAL_WIDTH - 90, 20)) --Base Block for the city
 end

@@ -38,6 +38,8 @@ function love.load()
     love.graphics.setFont(smallFont)
 
 
+    gBackground = love.graphics.newImage('graphics/sky_background.png')
+
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,
