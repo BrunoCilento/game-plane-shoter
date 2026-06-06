@@ -9,9 +9,9 @@ function Ground:init(x, y, width, height)
     -- table.insert(self.blocks_table, block)
 end
 
-function Block:update(dt)
+function Ground:update(dt)
 end
 
-function Block:render()
+function Ground:render()
     love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
 end

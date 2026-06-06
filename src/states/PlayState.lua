@@ -17,8 +17,8 @@ BOMB_HEIGHT = 4
 
 
 --building
-BLOCK_WIDTH = 14
-BLOCK_HEIGHT = 15
+BLOCK_WIDTH = 16
+BLOCK_HEIGHT = 16
 ROWS_NUMBER = 8 --max 8
 COLUMNS_NUMBER = 8 --max 8
 blocks_table = {}
@@ -112,19 +112,27 @@ function PlayState:update(dt)
     for i = #self.plane.bombs_table, 1, -1 do
         bomb = self.plane.bombs_table[i]
         bomb:update(dt)
-        if bomb.y > GROUND_LEVEL then
+
+        local hit_ground = false
+        for _, ground in ipairs(ground_table) do
+            if bomb:collides(ground) then
+                hit_ground = true
+                break
+            end
+        end
+        if hit_ground or bomb.y > GROUND_LEVEL then
             table.remove(self.plane.bombs_table, i)
             self.player_streak = 0
-            break
-        end
-        for j = #blocks_table, 1, -1 do
-            block = blocks_table[j]
-            if bomb:collides(block) then
-                table.remove(blocks_table, j)
-                table.remove(self.plane.bombs_table, i)
-                self.score = self.score + 1 + math.floor(self.player_streak/5)
-                self.player_streak = self.player_streak + 1
-                break
+        else
+            for j = #blocks_table, 1, -1 do
+                block = blocks_table[j]
+                if bomb:collides(block) then
+                    table.remove(blocks_table, j)
+                    table.remove(self.plane.bombs_table, i)
+                    self.score = self.score + 1 + math.floor(self.player_streak/5)
+                    self.player_streak = self.player_streak + 1
+                    break
+                end
             end
         end
     end
@@ -140,7 +148,10 @@ function PlayState:render()
     love.graphics.draw(gBackground, 0, 0, 0, sx, sy)
 
     --render score on the corner
+    love.graphics.setColor(0, 0, 0, 0.6)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 40, 7, 38, 20)
     love.graphics.setFont(largeFont)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print(tostring(self.score), VIRTUAL_WIDTH - 35, 10)
 
     self.plane:render()
@@ -166,6 +177,7 @@ function PlayState:render()
     end
 
     displayMissiles(self.missile_ammo)
+
 end
 
 function PlayState:exit()
@@ -173,8 +185,10 @@ end
 
 
 function displayMissiles(missile_ammo)
+    love.graphics.setColor(0, 0, 0, 0.6)
+    love.graphics.rectangle('fill', 46, 7, 76, 13)
     love.graphics.setFont(smallFont)
-    love.graphics.setColor(219, 124, 15, 255)
+    love.graphics.setColor(219/255, 124/255, 15/255, 1)
     love.graphics.print('Missiles: ', 50, 10)
     love.graphics.rectangle('line', 90, 10 + 2, 6, 4)
     love.graphics.rectangle('line', 100, 10 + 2, 6, 4)
@@ -187,15 +201,16 @@ end
 function spawnBlocks()
     rows = ROWS_NUMBER
     cols = COLUMNS_NUMBER
-    vertical_spacing = 1
+    vertical_spacing = 0
     horizontal_spacing = 20
 
     for col = 1, cols do
+        local quad = gBlockQuads[math.random(1, 4)]
         random_horizontal_spacing = math.random(0,5)
         x = 100 + (col - 1) * (BLOCK_WIDTH + horizontal_spacing) + random_horizontal_spacing
         for row = 1, rows do
             y = GROUND_LEVEL - 20 - BLOCK_HEIGHT - (row - 1) * (BLOCK_HEIGHT + vertical_spacing)
-            table.insert(blocks_table, Block(x, y, BLOCK_WIDTH, BLOCK_HEIGHT))
+            table.insert(blocks_table, Block(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, quad))
         end
     end
 end

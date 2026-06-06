@@ -40,6 +40,12 @@ function love.load()
 
     gBackground = love.graphics.newImage('graphics/sky_background.png')
 
+    gBlockSheet = love.graphics.newImage('graphics/sprite_sheet.png')
+    gBlockQuads = {}
+    for i = 0, 3 do
+        gBlockQuads[i + 1] = love.graphics.newQuad(i * 16, 0, 16, 16, gBlockSheet:getDimensions())
+    end
+
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,

@@ -38,6 +38,19 @@ describe('Plane:reset()', function()
   end)
 end)
 
+describe('Block:init() quad parameter', function()
+  it('quad is nil when not provided', function()
+    local b = Block(0, 0, 16, 16)
+    assert.is_nil(b.quad)
+  end)
+
+  it('stores quad when provided', function()
+    local fake_quad = {}
+    local b = Block(0, 0, 16, 16, fake_quad)
+    assert.are.equal(fake_quad, b.quad)
+  end)
+end)
+
 describe('Block:hit()', function()
   local b
 
