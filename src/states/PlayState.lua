@@ -4,8 +4,8 @@ PlayState = Class{__includes = BaseState}
 
 
 -- plane
-PLANE_WIDTH = 20
-PLANE_HEIGHT = 6
+PLANE_WIDTH = 24
+PLANE_HEIGHT = 8
 PLANE_INITIAL_SPEED = 100 --100
 -- missile
 MISSILE_WIDTH = 5

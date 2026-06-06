@@ -41,9 +41,16 @@ end
 
 function CountdownState:render()
     -- render ground
-    love.graphics.rectangle('fill', 0, GROUND_LEVEL, VIRTUAL_WIDTH, VIRTUAL_HEIGHT - GROUND_LEVEL)
-    love.graphics.rectangle('fill', 80, GROUND_LEVEL - 20, VIRTUAL_WIDTH - 90, 20)
+    -- love.graphics.rectangle('fill', 0, GROUND_LEVEL, VIRTUAL_WIDTH, VIRTUAL_HEIGHT - GROUND_LEVEL) --Ground
+    -- love.graphics.rectangle('fill', 80, GROUND_LEVEL - 20, VIRTUAL_WIDTH - 90, 20) -- Base Block for the city
     
+    --Render the Background
+    local sx = VIRTUAL_WIDTH / gBackground:getWidth()
+    local sy = VIRTUAL_HEIGHT / gBackground:getHeight()
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(gBackground, 0, 0, 0, sx, sy)
+
+
     love.graphics.setFont(hugeFont)
     love.graphics.printf(tostring(self.count), 0, 120, VIRTUAL_WIDTH, 'center')
 end
