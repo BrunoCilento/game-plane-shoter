@@ -22,5 +22,7 @@ function Missile:update(dt)
 end
 
 function Missile:render()
-    love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(gBlockSheet, gMissileQuad, self.x, self.y, 0,
+        self.width / 4, self.height / 2)
 end

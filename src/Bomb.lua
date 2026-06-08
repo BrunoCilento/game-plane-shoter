@@ -24,5 +24,7 @@ function Bomb:update(dt)
 end
 
 function Bomb:render()
-    love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(gBlockSheet, gBombQuad, self.x, self.y, 0,
+        self.width / 2, self.height / 4)
 end

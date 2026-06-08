@@ -45,7 +45,9 @@ function love.load()
     for i = 0, 3 do
         gBlockQuads[i + 1] = love.graphics.newQuad(i * 16, 0, 16, 16, gBlockSheet:getDimensions())
     end
-    gPlaneQuad = love.graphics.newQuad(65, 0, 45, 16, gBlockSheet:getDimensions())
+    gPlaneQuad   = love.graphics.newQuad(65,  0, 45, 16, gBlockSheet:getDimensions())
+    gMissileQuad = love.graphics.newQuad(128, 0,  4,  2, gBlockSheet:getDimensions())
+    gBombQuad    = love.graphics.newQuad(112, 0,  2,  4, gBlockSheet:getDimensions())
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,

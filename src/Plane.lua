@@ -26,7 +26,7 @@ end
 
 function Plane:shoot_missile(missile_ammo)
     if #self.missile_table < missile_ammo then
-        local missile = Missile(self.x + PLANE_WIDTH/4, self.y + self.height*3/5 + MISSILE_HEIGHT/2, MISSILE_WIDTH, MISSILE_HEIGHT, self.dx)
+        local missile = Missile(self.x + PLANE_WIDTH/2, self.y + self.height + MISSILE_HEIGHT/2, MISSILE_WIDTH, MISSILE_HEIGHT, self.dx)
         table.insert(self.missile_table, missile)
         return true
     end
@@ -35,7 +35,7 @@ end
 
 function Plane:drop_bomb()
     if #self.bombs_table < 2 then
-        bomb = Bomb(self.x + PLANE_WIDTH/3, self.y + self.height*3/5, BOMB_WIDTH, BOMB_HEIGHT, self.dx)
+        bomb = Bomb(self.x + PLANE_WIDTH/2, self.y + self.height, BOMB_WIDTH, BOMB_HEIGHT, self.dx)
         table.insert(self.bombs_table, bomb)
     end
 end
